@@ -11,7 +11,7 @@ class handDetector():
         self.trackingCon = trackingCon
         self.complexity = complexity
 
-        # initializes a hand object - a component of the handDetector
+        # initializes a hand object as a component of the handDetector
         self.handSolutions = mediapipe.solutions.hands
         self.hands = self.handSolutions.Hands(self.mode, self.maxHands, self.complexity, self.detectionCon, self.trackingCon)
         # draws hand landmark points
@@ -20,8 +20,7 @@ class handDetector():
 
     def findHands(self, img, draw=True):
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # converts image to RGB so that Hands can use it
-        self.results = self.hands.process(imgRGB) # built-in function in Hands ("process") that specifies the image
-        # check if there are multiple hands, and extract 1 by 1, but only if there is something in the result
+        self.results = self.hands.process(imgRGB) # built-in function in Hands ("process") that specifies the image to take hand from
         if self.results.multi_hand_landmarks:  # hand landmarks is built-in representation of all hand landmarks
             for handLms in self.results.multi_hand_landmarks:
                 # draws on the original BGR image, for one hand, HAND_CONNECTIONS includes lines between points
